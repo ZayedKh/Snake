@@ -1,6 +1,7 @@
 #include <iostream>
 #include<unistd.h>
 #include <conio.h>
+#include <windows.h>
 
 using namespace std;
 bool gameOver;
@@ -32,7 +33,7 @@ int main()
         draw();
         input();
         logic();
-        usleep(100000); // lets the program sleep for 1 ms
+        usleep(50000); // lets the program sleep for 1 ms
     }
 
 
@@ -52,7 +53,11 @@ void setup()
 
 void draw()
 {
-    system("cls"); // clears the screen
+    CONSOLE_CURSOR_INFO info;
+    info.dwSize = 100;
+    info.bVisible = false; // removes the cursor
+    SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &info); // moves the cursor to the top left of the screen so it rewrites from the top instead of starting a new line
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), {0,0});
     for (int i = 0; i <= width; i++) // draws the top border
     {
         cout << border;
